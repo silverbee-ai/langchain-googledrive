@@ -1876,7 +1876,7 @@ class GoogleDriveAPIWrapper(GoogleDriveUtilities):
     )
 
     mode: Literal[
-        "snippets", "snippets-markdown", "documents", "documents-markdown"
+        "snippets", "snippets-markdown", "documents", "documents-markdown","documents-content"
     ] = "snippets-markdown"
 
     num_results: int = 10
@@ -1951,6 +1951,12 @@ class GoogleDriveAPIWrapper(GoogleDriveUtilities):
                     f"({document.metadata['source']})<br/>"
                     + f"{GoogleDriveUtilities._snippet_from_page_content(content)}"
                 )
+            elif self.mode == "documents-content":
+                snippets.append(
+                    f"[{document.metadata['name']}]"
+                    f"({document.metadata['source']})<br/>"
+                    + f"content L{content}"
+                )    
             else:
                 raise ValueError(f"Invalid mode `{self.mode}`")
 
