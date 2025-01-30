@@ -1952,6 +1952,11 @@ class GoogleDriveAPIWrapper(GoogleDriveUtilities):
                     + f"{GoogleDriveUtilities._snippet_from_page_content(content)}"
                 )
             elif self.mode == "documents-content":
+                if len(content) > 5000:
+                    content = GoogleDriveUtilities._snippet_from_page_content(content,5000)
+                else:
+                    content = content
+
                 snippets.append(
                     f"[{document.metadata['name']}]"
                     f"({document.metadata['source']})<br/>"
